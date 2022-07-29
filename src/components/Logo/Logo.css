@@ -1,0 +1,11 @@
+.tilt {
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(to right, #ffbf00, #d10065);
+}
+
+.tilt img {
+    align-self: center;
+}
