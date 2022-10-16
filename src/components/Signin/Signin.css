@@ -1,0 +1,11 @@
+.card-bg {
+    background: linear-gradient(to right, #ffbf00, #d10065);
+}
+
+.btn:hover {
+    border: 1px solid whitesmoke;
+}
+
+input:focus {
+    outline: none;
+}

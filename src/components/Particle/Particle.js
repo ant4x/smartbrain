@@ -3,7 +3,7 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "./Particle.css"
 
-export default React.memo(function Particle() {
+const Particle = () => {
 
     const particlesInit = async (main) => {
         // console.log(main);
@@ -156,4 +156,6 @@ export default React.memo(function Particle() {
             }}
         />
     );
-})
+}
+
+export default React.memo(Particle)
