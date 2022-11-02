@@ -1,7 +1,35 @@
 import React from "react"
 import "./Signin.css"
 
-const Signin = ({ onRouteChange }) => {
+const Signin = ({ onRouteChange, loadUser }) => {
+
+    const [signInEmail, setSignInEmail] = React.useState('')
+    const [signInPassword, setSignInPassword] = React.useState('')
+
+    const onEmailChange = (event) => {
+        setSignInEmail(event.target.value)
+    }
+
+    const onPasswordChange = (event) => {
+        setSignInPassword(event.target.value)
+    }
+
+    const onSubmitSignIn = () => {
+        fetch('http://localhost:3001/signin', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: signInEmail,
+                password: signInPassword
+            })
+        })
+            .then(res => res.json())
+            .then(user => {
+                user.id && loadUser(user)
+                user.id && onRouteChange('home')
+            })
+    }
+
     return (
         <article className="br3 ba silver mv4 w-100 w-50-m w-25-l mw6 center bg-gold shadow-5 card-bg">
             <main className="pa4 white-80">
@@ -10,16 +38,26 @@ const Signin = ({ onRouteChange }) => {
                         <legend className="f1 fw4 ph0 mh0">Sign In</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba b--white-50 bg-transparent hover-bg-white-50 w-100" type="email" name="email-address" id="email-address" />
+                            <input className="pa2 input-reset ba b--white-50 bg-transparent hover-bg-white-50 w-100"
+                                type="email"
+                                name="email-address"
+                                id="email-address"
+                                onChange={onEmailChange}
+                            />
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba b--white-50 bg-transparent hover-bg-white-50 w-100" type="password" name="password" id="password" />
+                            <input className="b pa2 input-reset ba b--white-50 bg-transparent hover-bg-white-50 w-100"
+                                type="password"
+                                name="password"
+                                id="password"
+                                onChange={onPasswordChange}
+                            />
                         </div>
                     </fieldset>
                     <div className="">
                         <input
-                            onClick={() => onRouteChange('home')}
+                            onClick={onSubmitSignIn}
                             className="btn b ph3 pv2 input-reset white-80 ba b--black-50 hover-bg-gold bg-transparent grow pointer f6 dib"
                             type="submit"
                             value="Sign in"
@@ -35,3 +73,5 @@ const Signin = ({ onRouteChange }) => {
 }
 
 export default Signin
+
+// TO DO: need to refactor "Signin" and "Register" creating a "Form" component
