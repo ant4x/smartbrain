@@ -17,17 +17,17 @@ window.process = {
 
 function App() {
 
-  const [input, setInput] = React.useState('')
-  const [imageUrl, setImageUrl] = React.useState('')
+  const [input, setInput] = React.useState("")
+  const [imageUrl, setImageUrl] = React.useState("")
   const [box, setBox] = React.useState({})
-  const [route, setRoute] = React.useState('signin')
+  const [route, setRoute] = React.useState("signin")
   const [isSignedIn, setIsSignedIn] = React.useState(false)
   const [user, setUser] = React.useState({
-    id: '',
-    name: '',
-    email: '',
+    id: "",
+    name: "",
+    email: "",
     entries: 0,
-    joined: ''
+    joined: ""
   })
 
   const onInputChange = (event) => {
@@ -47,7 +47,7 @@ function App() {
 
   const calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
-    const image = document.getElementById('inputImage')
+    const image = document.getElementById("inputImage")
     const width = Number(image.width)
     const height = Number(image.height)
     return {
@@ -64,9 +64,9 @@ function App() {
 
   const onPictureSubmit = () => {
     setImageUrl(input)
-    fetch('http://localhost:3001/imageurl', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("https://shrouded-harbor-48513.herokuapp.com/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         input
       })
@@ -74,9 +74,9 @@ function App() {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://localhost:3001/image', {
-            method: 'put',
-            headers: { 'Content-Type': 'application/json' },
+          fetch("https://shrouded-harbor-48513.herokuapp.com/image", {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               id: user.id
             })
@@ -96,24 +96,24 @@ function App() {
   }
 
   const returnToInitialState = () => {
-    setInput('')
-    setImageUrl('')
+    setInput("")
+    setImageUrl("")
     setBox({})
-    setRoute('signin')
+    setRoute("signin")
     setIsSignedIn(false)
     setUser({
-      id: '',
-      name: '',
-      email: '',
+      id: "",
+      name: "",
+      email: "",
       entries: 0,
-      joined: ''
+      joined: ""
     })
   }
 
   const onRouteChange = (route) => {
-    if (route === 'signout') {
+    if (route === "signout") {
       returnToInitialState()
-    } else if (route === 'home') {
+    } else if (route === "home") {
       setIsSignedIn(true)
     }
     setRoute(route)

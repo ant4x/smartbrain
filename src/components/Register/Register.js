@@ -2,9 +2,9 @@ import React from "react"
 
 const Register = ({ onRouteChange, loadUser }) => {
 
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [name, setName] = React.useState('')
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+    const [name, setName] = React.useState("")
 
     const onNameChange = (event) => {
         setName(event.target.value)
@@ -19,9 +19,9 @@ const Register = ({ onRouteChange, loadUser }) => {
     }
 
     const onSubmitSignIn = () => {
-        fetch('http://localhost:3001/register', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
+        fetch("https://shrouded-harbor-48513.herokuapp.com/register", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 name,
                 email,
@@ -30,7 +30,7 @@ const Register = ({ onRouteChange, loadUser }) => {
         })
             .then(res => res.json())
             .then(user => {
-                user.id && onRouteChange('home')
+                user.id && onRouteChange("home")
                 loadUser(user)
             })
     }
